@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    
+  },
+  
+  "include": ["src/**/*.ts", "src/client/**/**/*.ts", "src/index.mts"],
+  "exclude": ["node_modules"]
+}
