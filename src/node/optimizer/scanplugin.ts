@@ -7,6 +7,7 @@ export function scanPlugin(deps: Set<string>): Plugin {
     name: "scan-deps",
     setup(build) {
       build.onResolve({ filter: new RegExp(`\\.(${EXTERNAL_TYPES.join("|")})$`) }, (resolveInfo) => {
+ 
         return {
           path: resolveInfo.path,
           // 打上 external 标记
@@ -16,6 +17,7 @@ export function scanPlugin(deps: Set<string>): Plugin {
       build.onResolve({
         filter: BARE_IMPORT_RE,
       }, (resolveInfo) => {
+   
         deps.add(resolveInfo.path)
         return {
           path: resolveInfo.path,

@@ -1,11 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
+
+import { createRoot } from "react-dom/client";
+// import "./index.css";
 
 const App = () => <div>hesfssfafafsass</div>;
 
-ReactDOM.render(<App />, document.getElementById("root"));
-
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
 // @ts-ignore
 // import.meta.hot.accept(() => {
 //   ReactDOM.render(<App />, document.getElementById("root"));
