@@ -87,7 +87,7 @@ app.use(async (ctx, next) => {
 
 
 app.listen(8954, async () => {
-  await optimize(root, "src/node/cyber/react.tsx")
-  await optimize(root, "src/node/cyber/vue.ts")
+  await optimize(root, "src/cyber/react.tsx")
+  await optimize(root, "src/cyber/vue.ts")
   console.log("http://localhost:8954 ")
 })
