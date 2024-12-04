@@ -1,9 +1,8 @@
 import React from "react";
-
+import App from "./App"
 import { createRoot } from "react-dom/client";
 // import "./index.css";
 
-const App = () => <div>hesfssfafafsass</div>;
 
 const root = createRoot(document.getElementById("root"));
 root.render(<App />);

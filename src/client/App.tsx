@@ -1,6 +1,6 @@
-import "./App.css";
+// import "./App.css";
 import React from "react"
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 function App() {
   return (
     <div className="App">
@@ -10,7 +10,7 @@ function App() {
         <p>
           Edit <code>App</code> and save e test.
         </p>
-        <img className="App-logo" src={logo} alt="" />
+        {/* <img className="App-logo" src={logo} alt="" /> */}
         <p></p>
       </header>
     </div>

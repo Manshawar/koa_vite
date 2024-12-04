@@ -1,5 +1,5 @@
 import { resolvePlugins } from './node/plugins/index';
-import { createPluginContainer, type PluginContainer } from './node/plugins/pluginContainer';
+import { createPluginContainer, type PluginContainer } from './node/pluginContainer';
 import type { Plugin } from "./node/plugins/plugin";
 import Koa from "koa";
 const app = new Koa();
@@ -25,7 +25,6 @@ const serverContext: ServerContext = {
 }
 for (const plugin of plugins) {
   if (plugin.configureServer) {
-
     await plugin.configureServer(serverContext)
   }
 }
