@@ -1,7 +1,6 @@
 import { ServerContext } from './../../index';
 import resolve from "resolve";
 import { Plugin } from "./plugin";
-
 import path from "path";
 import fs, { pathExists } from "fs-extra";
 import { DEFAULT_EXTERSIONS } from "../contants";
@@ -14,6 +13,7 @@ export function resolvePath(): Plugin {
       serverContext = s
     },
     async resolveId(id, importer) {
+  
       if (path.isAbsolute(id)) {
         if (await pathExists(id)) {
           return {

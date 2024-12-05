@@ -1,5 +1,5 @@
-// import "./App.css";
-import React from "react"
+import "./App.css";
+import React from "react";
 // import logo from "./logo.svg";
 function App() {
   return (
@@ -7,6 +7,7 @@ function App() {
       <header className="App-header">
         <p>Hello sVssissdd + React</p>
         <p></p>
+        <img src="/public/OIP-C.jpg" alt="" />
         <p>
           Edit <code>App</code> and save e test.
         </p>

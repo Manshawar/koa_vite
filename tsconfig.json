@@ -11,6 +11,6 @@
     
   },
   
-  "include": ["src/**/*.ts", "src/client/**/**/*.ts", "src/index.mts"],
+  "include": ["src/**/*.ts", "src/client/**/**/*.ts", "src/index.mts", "src/client/components/test.tsx"],
   "exclude": ["node_modules"]
 }

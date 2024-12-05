@@ -3,6 +3,8 @@ import { isJSRequest } from "../utils";
 import path from "path";
 import fs from "fs-extra";
 import esbuild from "esbuild";
+import parser from '@babel/parser';
+import traverse from '@babel/traverse';
 export function esbuildTransformPlugin(): Plugin {
   return {
     name: "esbuild-transform",
@@ -24,7 +26,13 @@ export function esbuildTransformPlugin(): Plugin {
           format: "esm",
           sourcemap: true,
           loader: extname as "js" | "ts" | "jsx" | "tsx",
+
         })
+        // const ast = parser.parse(resCode, {
+        //   sourceType: 'module',
+        // });
+   
+        // traverse(ast, {})
         return {
           code: resCode,
           map
