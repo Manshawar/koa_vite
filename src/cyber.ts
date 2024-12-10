@@ -16,8 +16,8 @@ console.log(path.join(root, "/src/cyber"));
 app.use(async (ctx, next) => {
   const { req, res } = ctx;
   if (req.url?.endsWith(".png")) {
-    console.log(path.resolve(path.join(root, req.url as string)));
     let img = await fs.readFile(path.resolve(path.join(root, req.url as string)));
+    ctx.set('Content-Type', 'image/png'); 
     res.end(img)
     // let img =await fs.readFile()
     // res.end()
@@ -37,7 +37,7 @@ app.use(async (ctx, next) => {
     //loader
     if (realPath.endsWith("?import")) {
       let realtivePath = path
-        .join("/", path.relative(process.cwd(), realPath.split("?")[0]))
+        .join( path.relative(process.cwd(), realPath.split("?")[0]))
         .replaceAll("\\", "/");
       let code = `export default "${realtivePath}"`;
       res.setHeader("Content-Type", "application/javascript");

@@ -1,7 +1,9 @@
 import os from "os";
 import path from "path";
 import { JS_TYPES_RE, HASH_RE, QEURY_RE, CLIENT_PUBLIC_PATH, } from './contants'
-
+import emitter from "events";
+let ee = new emitter();
+export const eventEmitter = ee
 export function slash(p: string): string {
   return p.replace(/\\/g, "/");
 }
@@ -30,7 +32,8 @@ export function isImportRequest(url: string): boolean {
   return url.endsWith("?import");
 }
 export function getShortName(file: string, root: string) {
-
+  root = root.replaceAll("\\", "\/");
+  file = file.replaceAll("\\", "\/");
   return file.startsWith(root + "/") ? path.posix.relative(root, file) : file;
 }
 export function removeImportQuery(url: string): string {

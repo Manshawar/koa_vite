@@ -28,11 +28,6 @@ export function esbuildTransformPlugin(): Plugin {
           loader: extname as "js" | "ts" | "jsx" | "tsx",
 
         })
-        // const ast = parser.parse(resCode, {
-        //   sourceType: 'module',
-        // });
-   
-        // traverse(ast, {})
         return {
           code: resCode,
           map

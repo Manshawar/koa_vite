@@ -13,7 +13,7 @@ export function resolvePath(): Plugin {
       serverContext = s
     },
     async resolveId(id, importer) {
-  
+      
       if (path.isAbsolute(id)) {
         if (await pathExists(id)) {
           return {
@@ -32,10 +32,10 @@ export function resolvePath(): Plugin {
         }
         const hasExtension = path.extname(id).length > 1;
         let resolvedId: string;
-      
+
         if (hasExtension) {
           //请于test中查看resolve.test.ts测试
-        
+
           resolvedId = normalizePath(resolve.sync(id, { basedir: path.dirname(importer) }));
           if (await pathExists(resolvedId)) {
             return {
@@ -43,17 +43,17 @@ export function resolvePath(): Plugin {
             }
           }
         } else {
-          
+
           for (const extname of DEFAULT_EXTERSIONS) {
             try {
               const withExtension = `${id}${extname}`;
-           
+
               resolvedId = normalizePath(resolve.sync(withExtension, {
                 basedir: path.dirname(importer),
               }));
-            
+
               if (await pathExists(resolvedId)) {
-            
+
                 return {
                   id: resolvedId
                 }
