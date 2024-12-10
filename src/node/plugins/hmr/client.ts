@@ -2,7 +2,7 @@
 
 console.log("[vite] connecting...");
 const socket = new WebSocket(`ws://localhost:__HMR_PORT__`, "vite-hmr");
-let boundaries:any;
+let boundaries: any;
 socket.addEventListener("message", async ({ data }) => {
 
   handleMessage(JSON.parse(data)).catch(console.error)
@@ -14,11 +14,10 @@ async function handleMessage(payload: any) {
       setInterval(() => socket.send("ping"), 1000);
       break;
     case "update":
+      console.log(payload.updates)
       payload.updates.forEach((update: any) => {
         if (update.type === "js-update") {
-
           fetchUpdate(update)
-
         }
       })
       break;
@@ -47,7 +46,7 @@ export const createHotContext = (ownerPath: string, arr: any) => {
     mod.callbacks = []
   }
   function acceptDeps(deps: string[], callback: any) {
- 
+
     const mod: HotModule = hotModulesMap.get(ownerPath) || {
       id: ownerPath,
       callbacks: []
@@ -72,14 +71,14 @@ export const createHotContext = (ownerPath: string, arr: any) => {
 async function fetchUpdate({ path, timeStamp }: any) {
   // console.log(path)
   const mod = hotModulesMap.get(path);
-  console.log(boundaries, "mod---------------------",path)
+  console.log(boundaries, "mod---------------------", path)
   if (!mod) return;
   const moduleMap = new Map();
   const modulesToUpdate = new Set<string>();
   modulesToUpdate.add(path);
-  boundaries.forEach((item:string) => {
-    modulesToUpdate.add(item);
-  })
+  // boundaries.forEach((item:string) => {
+  //   modulesToUpdate.add(item);
+  // })
   await Promise.all(Array.from(modulesToUpdate).map(async (dep) => {
     const [path, query] = dep.split("?");
 
@@ -96,4 +95,25 @@ async function fetchUpdate({ path, timeStamp }: any) {
       console.log(`[vite] hot updated: ${path}`);
     }
   }
+}
+const sheetsMap = new Map();
+export function updateStyle(id: string, content: string) {
+  let style = sheetsMap.get(id);
+  if (!style) {
+    style = document.createElement("style");
+    style.setAttribute("type", "text/css");
+    style.innerHTML = content;
+    document.head.appendChild(style);
+  } else {
+    style.innerHTML = content;
+  }
+
+  sheetsMap.set(id, style);
+};
+export function removeStyle(id: string): void{
+  const style = sheetsMap.get(id);
+  if (style) {
+    document.head.removeChild(style);
+  }
+  sheetsMap.delete(id)
 }

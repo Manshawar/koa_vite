@@ -10,7 +10,7 @@ function App() {
         <p></p>
         <img src="/public/OIP-C.jpg" alt="" />
         <p>
-          ds<code>dssssdsaf</code> sans save es tsest.
+          ds<code>sdssdafsssfadsa</code> sans save es tsest.
         </p>
         <img className="App-logo" src={logo} alt="" />
         <p></p>

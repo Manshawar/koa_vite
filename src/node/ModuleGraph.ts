@@ -1,9 +1,10 @@
 import { PartialResolvedId, TransformResult } from "rollup";
 import { cleanUrl } from "./utils";
 import { debug } from "console";
+import { getboundaries } from "./plugins/hmr/boundaries"
 export class ModuleNode {
-  url: string="";
-  id: string="";
+  url: string = "";
+  id: string = "";
   importers = new Set<ModuleNode>();
   importedModules = new Set<ModuleNode>();
   transformResult: TransformResult | null = null;
@@ -39,18 +40,23 @@ export class ModuleGraph {
     const prevImports = mod.importedModules;
 
     for (const curImports of importedModules) {
-   
-   
+
+
       const dep = typeof curImports === "string" ? await this.ensureEntryFromUrl(cleanUrl(curImports)) : curImports;
       if (dep) {
-    
+
         mod.importedModules.add(dep);
         dep.importers.add(mod);
       }
     }
     for (const preImport of prevImports) {
+      // console.log(importedModules.has(preImport.url as string))
       if (!importedModules.has(preImport.url as string)) {
-        preImport.importers.delete(mod)
+        if (!this.getboundaries(mod.url).includes(mod.url)) {
+          preImport.importers.delete(mod)
+        }
+     
+      
       }
     }
   };
@@ -68,5 +74,10 @@ export class ModuleGraph {
     const resolved = await this.resolveId(url);
     const resolvedId = resolved?.id as string;
     return { url, resolvedId }
+  }
+  getboundaries(url: string) {
+    let curmod = this.urlToModuleMap.get(url)!;
+
+    return Array.from(getboundaries(curmod, new Set()))
   }
 }

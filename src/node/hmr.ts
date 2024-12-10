@@ -8,15 +8,16 @@ export function bindingHMREvents(serverContext: ServerContext) {
     console.log(`✨${picocolors.blue("[hmr]")} ${picocolors.green(file)} changed`);
     const { moduleGraph } = serverContext;
     await moduleGraph.invalidateModule(file);
-
+    let arr = moduleGraph.getboundaries("/" + getShortName(file, root)).map(item => ({
+      type: "js-update",
+      timeStamp: Date.now(),
+      path: item,
+      acceptedPath: item
+    }))
     ws.send({
       type: "update",
-      updates: [{
-        type: "js-update",
-        timeStamp: Date.now(),
-        path: "/" + getShortName(file, root),
-        acceptedPath: "/" + getShortName(file, root)
-      }]
+      updates: arr,
+
     })
   })
 }
